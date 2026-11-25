@@ -1,6 +1,6 @@
 # Marginrule pricing agent
 
-Price, fee, discount and plan math for Etsy, Shopify Basic, Payhip, Gumroad and Ko-fi. US sellers.
+Pricing math for Etsy, Shopify, Payhip, Gumroad, Ko-fi, Notion Marketplace and Square. US sellers.
 
 This is a public placeholder repository for the official MCP Registry and the GitHub MCP Registry. The server source code is not published here.
 
@@ -21,12 +21,12 @@ Fees shown are for US-based sellers selling to US buyers with domestic cards.
 
 ## Tools
 
-- `price_for_margin`: lowest whole-cent price that keeps a target profit margin after a platform's fees
-- `fees_breakdown`: fees a platform takes from one sale at a given price, and what the seller keeps
-- `discount_impact`: effect of a discount on fees and profit
-- `compare_plans`: which selling plan keeps the most at a price and monthly sales volume
-- `list_platforms`: platforms and fee presets this server knows
-- `data_version`: fee data version, dates and source URLs
+- `price_for_margin`: lowest whole-cent price that keeps a target profit margin after a platform's fees, for a given cost per item
+- `fees_breakdown`: fees a platform takes from one sale at a given price, split into platform, listing and card processor parts, plus net after fees
+- `discount_impact`: what a percentage or fixed-dollar discount on one item does to fees and profit at list and at the discounted price
+- `compare_plans`: which selling plan keeps the most at a price and monthly sales volume, after per-sale fees and monthly plan cost
+- `list_platforms`: platforms and fee presets this server prices per sale
+- `data_version`: fee dataset version, check dates, hashes and source URLs
 
 All six tools are read-only. They do not place listings, change prices, or sign in to a selling platform.
 
@@ -34,7 +34,7 @@ All six tools are read-only. They do not place listings, change prices, or sign 
 
 Per-sale pricing covers Etsy, Shopify Basic, Payhip Free, Plus and Pro, Gumroad direct and Discover, Ko-fi Shop, Notion Marketplace, and Square online or in person.
 
-Plan comparisons (`compare_plans`) cover Payhip Free, Plus and Pro, Gumroad direct and Discover, Ko-fi Shop and Ko-fi Gold, and Shopify Basic billed monthly or yearly. Ko-fi Gold is a plan option, so it appears in `compare_plans` rather than as its own per-sale platform in `list_platforms`. Etsy, Notion Marketplace and Square have no plan choice in the fee data; use `fees_breakdown` for those.
+Plan comparisons (`compare_plans`) cover Payhip Free, Plus and Pro, Gumroad direct and Discover, Ko-fi Shop and Ko-fi Gold, and Shopify Basic, Grow and Advanced, each billed monthly or yearly. Ko-fi Gold is a plan option, so it appears in `compare_plans` rather than as its own per-sale platform in `list_platforms`. Shopify Grow and Advanced are plan options too, so they also appear only in `compare_plans`. Etsy, Notion Marketplace and Square have no plan choice in the fee data; use `fees_breakdown` for those. Shopify subscription credits are not counted. Shopify's pricing page (opened 2026-11-25) says you earn 1% back on all sales as subscription credits, or 0.5% if you do not use Shopify Payments, for your first 6 months or until you reach the plan's cap of $5,000 (Basic), $7,500 (Grow) or $10,000 (Advanced), and terms apply. Those credits can lower what you pay for the plan and so move the break-even between Shopify plans, and `compare_plans` does not model them.
 
 The server does not cover sellers outside the US, Amazon FBA, competitor repricing, or VAT.
 
